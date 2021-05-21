@@ -127,5 +127,39 @@ namespace IpRepository
 
         public static bool operator !=(IpAddress a, IpAddress b) =>
             !(a == b);
+
+        public static bool operator >(IpAddress a, IpAddress b)
+        {
+            if (a.Bytes[0] > b.Bytes[0])
+                return true;
+            if (a.Bytes[0] < b.Bytes[0])
+                return false;
+            if (a.Bytes[1] > b.Bytes[1])
+                return true;
+            if (a.Bytes[1] < b.Bytes[1])
+                return false;
+            if (a.Bytes[2] > b.Bytes[2])
+                return true;
+            if (a.Bytes[2] < b.Bytes[2])
+                return false;
+            return a.Bytes[3] > b.Bytes[3];
+        }
+
+        public static bool operator <(IpAddress a, IpAddress b)
+        {
+            if (a.Bytes[0] < b.Bytes[0])
+                return true;
+            if (a.Bytes[0] > b.Bytes[0])
+                return false;
+            if (a.Bytes[1] < b.Bytes[1])
+                return true;
+            if (a.Bytes[1] > b.Bytes[1])
+                return false;
+            if (a.Bytes[2] < b.Bytes[2])
+                return true;
+            if (a.Bytes[2] > b.Bytes[2])
+                return false;
+            return a.Bytes[3] < b.Bytes[3];
+        }
     }
 }

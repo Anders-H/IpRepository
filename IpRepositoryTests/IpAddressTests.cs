@@ -56,5 +56,20 @@ namespace IpRepositoryTests
             Assert.IsTrue(new IpAddress(5, 6, 5, 4) == new IpAddress(System.Net.IPAddress.Parse("5.6.5.4")));
             Assert.IsTrue(new IpAddress(5, 6, 5, 8) != new IpAddress(5, 6, 5, 4));
         }
+
+        [TestMethod]
+        public void LargerThan()
+        {
+            Assert.IsTrue(new IpAddress(5, 4, 3, 2) > new IpAddress(System.Net.IPAddress.Parse("4.255.255.255")));
+            Assert.IsTrue(new IpAddress(5, 4, 3, 2) > new IpAddress(System.Net.IPAddress.Parse("4.3.255.255")));
+            Assert.IsTrue(new IpAddress(5, 4, 3, 2) > new IpAddress(System.Net.IPAddress.Parse("4.3.2.255")));
+            Assert.IsTrue(new IpAddress(5, 4, 3, 2) > new IpAddress(System.Net.IPAddress.Parse("4.3.2.1")));
+            Assert.IsFalse(new IpAddress(5, 4, 3, 2) < new IpAddress(System.Net.IPAddress.Parse("4.255.255.255")));
+            Assert.IsFalse(new IpAddress(5, 4, 3, 2) < new IpAddress(System.Net.IPAddress.Parse("4.3.255.255")));
+            Assert.IsFalse(new IpAddress(5, 4, 3, 2) < new IpAddress(System.Net.IPAddress.Parse("4.3.2.255")));
+            Assert.IsFalse(new IpAddress(5, 4, 3, 2) < new IpAddress(System.Net.IPAddress.Parse("4.3.2.1")));
+            Assert.IsFalse(new IpAddress(5, 6, 5, 4) > new IpAddress(System.Net.IPAddress.Parse("5.6.5.4")));
+            Assert.IsFalse(new IpAddress(5, 6, 5, 4) < new IpAddress(System.Net.IPAddress.Parse("5.6.5.4")));
+        }
     }
 }
