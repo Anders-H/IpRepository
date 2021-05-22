@@ -17,7 +17,12 @@ namespace IpRepositoryTests
         [TestMethod]
         public void RangeSize()
         {
-            //Assert.IsTrue(new IpRange(new IpAddress(1, 2, 3, 4), );
+            Assert.IsTrue(new IpRange("1.1.1.1", "1.1.1.1").Size == 1);
+            Assert.IsTrue(new IpRange("1.1.1.1", "1.1.1.2").Size == 2);
+            Assert.IsTrue(new IpRange("1.1.1.1", "1.1.2.1").Size == 256);
+            Assert.IsTrue(new IpRange("1.1.1.1", "1.1.255.0").Size == 64770);
+            Assert.IsTrue(new IpRange("1.1.1.1", "1.1.255.1").Size == 64771);
+            Assert.IsTrue(new IpRange("1.1.1.1", "1.1.255.2").Size == 64772);
         }
     }
 }
