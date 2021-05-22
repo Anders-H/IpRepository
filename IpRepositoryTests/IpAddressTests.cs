@@ -1,3 +1,5 @@
+using System;
+using System.Security.Cryptography;
 using IpRepository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -69,6 +71,30 @@ namespace IpRepositoryTests
             Assert.IsFalse(new IpAddress(5, 4, 3, 2) < new IpAddress(System.Net.IPAddress.Parse("4.3.2.1")));
             Assert.IsFalse(new IpAddress(5, 6, 5, 4) > new IpAddress(System.Net.IPAddress.Parse("5.6.5.4")));
             Assert.IsFalse(new IpAddress(5, 6, 5, 4) < new IpAddress(System.Net.IPAddress.Parse("5.6.5.4")));
+        }
+
+        [TestMethod]
+        public void CreateFromString()
+        {
+            var ip = new IpAddress("255.254.253.252");
+            Assert.IsTrue(ip.Bytes[0] == 255);
+            Assert.IsTrue(ip.Bytes[1] == 254);
+            Assert.IsTrue(ip.Bytes[2] == 253);
+            Assert.IsTrue(ip.Bytes[3] == 252);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(SystemException))]
+        public void FailedToCreateFromParseFail()
+        {
+            var _ = new IpAddress("256.1.2.3");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(SystemException))]
+        public void FailedToCreateFromFormatError()
+        {
+            var _ = new IpAddress("Hello!");
         }
     }
 }

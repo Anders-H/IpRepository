@@ -21,5 +21,15 @@ namespace IpRepository
             StartAddress = startAddress;
             EndAddress = endAddress;
         }
+
+        public long Size
+        {
+            get
+            {
+                var size = 1L;
+
+                return size;
+            }
+        }
     }
 }

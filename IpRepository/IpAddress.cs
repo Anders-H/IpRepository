@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.Linq;
 
 namespace IpRepository
 {
@@ -23,6 +25,39 @@ namespace IpRepository
             Bytes = new[] {
                 n1, n2, n3, n4
             };
+        }
+
+        public IpAddress(string address)
+        {
+            if (!TryParse(address, out var a))
+                throw new SystemException();
+
+            Bytes = new[] {
+                a!.Bytes[0], a.Bytes[1], a.Bytes[2], a.Bytes[3]
+            };
+        }
+
+        public static bool TryParse(string address, out IpAddress? ipAddress)
+        {
+            ipAddress = null;
+            try
+            {
+                var stringBytes = address.Split('.');
+                if (stringBytes.Length != 4)
+                    return false;
+
+                var n1 = byte.Parse(stringBytes[0]);
+                var n2 = byte.Parse(stringBytes[1]);
+                var n3 = byte.Parse(stringBytes[2]);
+                var n4 = byte.Parse(stringBytes[3]);
+
+                ipAddress = new IpAddress(n1, n2, n3, n4);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public override string ToString() =>
@@ -114,7 +149,6 @@ namespace IpRepository
 
         public static bool operator ==(IpAddress a, IpAddress b)
         {
-            
             if (a.Equals(null) && b.Equals(null))
                 return true;
 
