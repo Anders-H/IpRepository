@@ -1,12 +1,11 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Linq;
 
 namespace IpRepository
 {
     public class IpAddress
     {
-        public byte[] Bytes { get; }
+        private byte[] Bytes { get; }
 
         public IpAddress() : this(0, 0, 0, 0)
         {
@@ -36,6 +35,12 @@ namespace IpRepository
                 a!.Bytes[0], a.Bytes[1], a.Bytes[2], a.Bytes[3]
             };
         }
+
+        public IpAddress Copy() =>
+            new IpAddress(Bytes[0], Bytes[1], Bytes[2], Bytes[3]);
+
+        public byte this[int i] =>
+            Bytes[i];
 
         public static bool TryParse(string address, out IpAddress? ipAddress)
         {

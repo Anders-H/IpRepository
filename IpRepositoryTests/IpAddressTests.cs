@@ -77,10 +77,10 @@ namespace IpRepositoryTests
         public void CreateFromString()
         {
             var ip = new IpAddress("255.254.253.252");
-            Assert.IsTrue(ip.Bytes[0] == 255);
-            Assert.IsTrue(ip.Bytes[1] == 254);
-            Assert.IsTrue(ip.Bytes[2] == 253);
-            Assert.IsTrue(ip.Bytes[3] == 252);
+            Assert.IsTrue(ip[0] == 255);
+            Assert.IsTrue(ip[1] == 254);
+            Assert.IsTrue(ip[2] == 253);
+            Assert.IsTrue(ip[3] == 252);
         }
 
         [TestMethod]
