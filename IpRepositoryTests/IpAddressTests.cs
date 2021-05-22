@@ -1,6 +1,5 @@
 using IpRepository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json.Serialization;
 
 namespace IpRepositoryTests
 {

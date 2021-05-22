@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using Microsoft.VisualBasic.CompilerServices;
 
 namespace IpRepository
 {
