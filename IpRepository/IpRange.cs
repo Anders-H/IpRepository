@@ -75,5 +75,8 @@ namespace IpRepository
 
             return Collides(ipRange.StartAddress) || Collides(ipRange.EndAddress);
         }
+
+        public bool Subset(IpRange ipRange) =>
+            Collides(ipRange.StartAddress) && Collides(ipRange.EndAddress);
     }
 }

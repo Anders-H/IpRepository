@@ -40,5 +40,15 @@ namespace IpRepositoryTests
             Assert.IsFalse(range.Collides(new IpRange("9.10.10.10", "9.20.10.10")));
             Assert.IsFalse(range.Collides(new IpRange("20.10.10.10", "30.10.10.10")));
         }
+
+        [TestMethod]
+        public void Subset()
+        {
+            var range = new IpRange("100.0.0.0", "110.0.0.0");
+            Assert.IsTrue(range.Subset(new IpRange("100.0.0.0", "110.0.0.0")));
+            Assert.IsTrue(range.Subset(new IpRange("100.0.0.1", "109.255.255.255")));
+            Assert.IsFalse(range.Subset(new IpRange("99.255.255.255", "110.0.0.1")));
+            Assert.IsFalse(range.Subset(new IpRange("100.0.0.1", "110.0.0.1")));
+        }
     }
 }
