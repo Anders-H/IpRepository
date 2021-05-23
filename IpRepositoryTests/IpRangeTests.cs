@@ -24,5 +24,21 @@ namespace IpRepositoryTests
             Assert.IsTrue(new IpRange("1.1.1.1", "1.1.255.1").Size == 64771);
             Assert.IsTrue(new IpRange("1.1.1.1", "1.1.255.2").Size == 64772);
         }
+
+        [TestMethod]
+        public void Collides()
+        {
+            var range = new IpRange("10.10.10.10", "10.11.10.10");
+            Assert.IsTrue(range.Collides(new IpAddress("10.10.10.10")));
+            Assert.IsTrue(range.Collides(new IpAddress("10.10.10.11")));
+            Assert.IsTrue(range.Collides(new IpAddress("10.10.11.10")));
+            Assert.IsFalse(range.Collides(new IpAddress("10.10.10.9")));
+            Assert.IsFalse(range.Collides(new IpAddress("10.11.10.11")));
+            Assert.IsTrue(range.Collides(new IpRange("9.10.10.10", "11.10.10.10")));
+            Assert.IsTrue(range.Collides(new IpRange("10.10.20.10", "12.10.10.10")));
+            Assert.IsTrue(range.Collides(new IpRange("10.10.10.9", "10.10.10.11")));
+            Assert.IsFalse(range.Collides(new IpRange("9.10.10.10", "9.20.10.10")));
+            Assert.IsFalse(range.Collides(new IpRange("20.10.10.10", "30.10.10.10")));
+        }
     }
 }

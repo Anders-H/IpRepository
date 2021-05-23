@@ -63,5 +63,17 @@ namespace IpRepository
                 return size;
             }
         }
+
+        public bool Collides(IpAddress ipAddress) =>
+            ipAddress >= StartAddress
+            && ipAddress <= EndAddress;
+
+        public bool Collides(IpRange ipRange)
+        {
+            if (ipRange.StartAddress <= StartAddress && ipRange.EndAddress >= EndAddress)
+                return true;
+
+            return Collides(ipRange.StartAddress) || Collides(ipRange.EndAddress);
+        }
     }
 }

@@ -199,5 +199,11 @@ namespace IpRepository
                 return false;
             return a.Bytes[3] < b.Bytes[3];
         }
+
+        public static bool operator >=(IpAddress a, IpAddress b) =>
+            a > b || a == b;
+
+        public static bool operator <=(IpAddress a, IpAddress b) =>
+            a < b || a == b;
     }
 }
