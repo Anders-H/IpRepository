@@ -28,6 +28,16 @@ namespace IpRepositoryTests
         }
 
         [TestMethod]
+        public void CreateFromLong()
+        {
+            Assert.IsTrue(new IpAddress(1002003004L) == new IpAddress(1, 2, 3, 4));
+            Assert.IsTrue(new IpAddress(255254253252L) == new IpAddress(255, 254, 253, 252));
+            Assert.IsTrue(new IpAddress(255255255255L) == new IpAddress(255, 255, 255, 255));
+            Assert.IsTrue(new IpAddress(0L) == new IpAddress(0, 0, 0, 0));
+            Assert.IsTrue(new IpAddress(1000000L) == new IpAddress(0, 1, 0, 0));
+        }
+
+        [TestMethod]
         public void Next()
         {
             Assert.IsTrue(new IpAddress(0, 0, 0, 0).Next() == new IpAddress(0, 0, 0, 1));

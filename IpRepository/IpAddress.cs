@@ -36,6 +36,16 @@ namespace IpRepository
             };
         }
 
+        public IpAddress(long address)
+        {
+            if (!TryParse(address, out var a))
+                throw new SystemException();
+
+            Bytes = new[] {
+                a!.Bytes[0], a.Bytes[1], a.Bytes[2], a.Bytes[3]
+            };
+        }
+
         public IpAddress Copy() =>
             new IpAddress(Bytes[0], Bytes[1], Bytes[2], Bytes[3]);
 
@@ -55,6 +65,26 @@ namespace IpRepository
                 var n2 = byte.Parse(stringBytes[1]);
                 var n3 = byte.Parse(stringBytes[2]);
                 var n4 = byte.Parse(stringBytes[3]);
+
+                ipAddress = new IpAddress(n1, n2, n3, n4);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public static bool TryParse(long address, out IpAddress? ipAddress)
+        {
+            ipAddress = null;
+            try
+            {
+                var s = address.ToString("000000000000");
+                var n1 = byte.Parse(s.Substring(0, 3));
+                var n2 = byte.Parse(s.Substring(3, 3));
+                var n3 = byte.Parse(s.Substring(6, 3));
+                var n4 = byte.Parse(s.Substring(9, 3));
 
                 ipAddress = new IpAddress(n1, n2, n3, n4);
                 return true;
