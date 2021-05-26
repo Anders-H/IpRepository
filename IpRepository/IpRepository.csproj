@@ -3,6 +3,12 @@
 	<PropertyGroup>
 		<TargetFramework>net5.0</TargetFramework>
 		<nullable>enable</nullable>
+		<Authors>Anders Hesselbom</Authors>
+		<Company />
+		<Product>IP Address Repository</Product>
+		<Description>A serializable representation of an IP address and IP range.</Description>
+		<RepositoryUrl>https://github.com/Anders-H/IpRepository</RepositoryUrl>
+		<Version>1.0.1</Version>
 	</PropertyGroup>
 
 	<ItemGroup>

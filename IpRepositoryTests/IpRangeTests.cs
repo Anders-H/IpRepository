@@ -50,5 +50,22 @@ namespace IpRepositoryTests
             Assert.IsFalse(range.Subset(new IpRange("99.255.255.255", "110.0.0.1")));
             Assert.IsFalse(range.Subset(new IpRange("100.0.0.1", "110.0.0.1")));
         }
+
+        [TestMethod]
+        public void CanEnumerate()
+        {
+            var count = 0;
+            foreach (var ip in new IpRange(new IpAddress("192.168.0.1"), new IpAddress("192.168.0.10")))
+            {
+                if (count == 0)
+                    Assert.IsTrue(ip.ToString() == "192.168.0.1");
+                else if (count == 1)
+                    Assert.IsTrue(ip.ToString() == "192.168.0.2");
+                else if (count == 9)
+                    Assert.IsTrue(ip.ToString() == "192.168.0.10");
+                count++;
+            }
+            Assert.IsTrue(count == 10);
+        }
     }
 }

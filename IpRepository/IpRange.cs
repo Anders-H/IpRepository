@@ -1,9 +1,53 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Transactions;
 
 namespace IpRepository
 {
-    public class IpRange
+    public class IpRange : IEnumerable<IpAddress>
     {
+        public class Enumerator : IEnumerator<IpAddress>
+        {
+            private IpAddress? _current;
+            public IpAddress StartAddress { get; }
+            public IpAddress EndAddress { get; }
+
+            object IEnumerator.Current => Current;
+
+            internal Enumerator(IpAddress startAddress, IpAddress endAddress)
+            {
+                StartAddress = startAddress;
+                EndAddress = endAddress;
+            }
+
+            public IpAddress Current => _current;
+
+            public bool MoveNext()
+            {
+                if (Current == null)
+                {
+                    _current = StartAddress;
+                    return true;
+                }
+                var next = Current.Next();
+                if (next > EndAddress || next <= StartAddress)
+                    return false;
+                _current = next;
+                return true;
+            }
+
+            public void Reset()
+            {
+                _current = null;
+            }
+
+            public void Dispose()
+            {
+                _current = null;
+            }
+        }
+
         public IpAddress StartAddress { get; }
         public IpAddress EndAddress { get; }
 
@@ -62,6 +106,19 @@ namespace IpRepository
                 
                 return size;
             }
+        }
+
+        public IEnumerator<IpAddress> GetEnumerator() =>
+            new Enumerator(StartAddress, EndAddress);
+
+        public override string ToString() =>
+            StartAddress == EndAddress
+                ? StartAddress.ToString()
+                : $"{StartAddress}-{EndAddress}";
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
 
         public bool Collides(IpAddress ipAddress) =>

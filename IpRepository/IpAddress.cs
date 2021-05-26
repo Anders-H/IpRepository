@@ -182,18 +182,18 @@ namespace IpRepository
             && Bytes[2] == other.Bytes[2]
             && Bytes[3] == other.Bytes[3];
 
-        public static bool operator ==(IpAddress a, IpAddress b)
+        public static bool operator ==(IpAddress? a, IpAddress? b)
         {
-            if (a.Equals(null) && b.Equals(null))
+            if (ReferenceEquals(a, null) && ReferenceEquals(b, null))
                 return true;
 
-            if (a.Equals(null) || b.Equals(null))
+            if (ReferenceEquals(a, null) || ReferenceEquals(b, null))
                 return false;
 
             return a.IsSameAs(b);
         }
 
-        public static bool operator !=(IpAddress a, IpAddress b) =>
+        public static bool operator !=(IpAddress? a, IpAddress? b) =>
             !(a == b);
 
         public static bool operator >(IpAddress a, IpAddress b)
