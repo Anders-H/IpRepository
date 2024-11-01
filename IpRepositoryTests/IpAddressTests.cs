@@ -1,5 +1,4 @@
 using System;
-using System.Security.Cryptography;
 using IpRepository;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -97,14 +96,14 @@ namespace IpRepositoryTests
         [ExpectedException(typeof(SystemException))]
         public void FailedToCreateFromParseFail()
         {
-            var _ = new IpAddress("256.1.2.3");
+            _ = new IpAddress("256.1.2.3");
         }
 
         [TestMethod]
         [ExpectedException(typeof(SystemException))]
         public void FailedToCreateFromFormatError()
         {
-            var _ = new IpAddress("Hello!");
+            _ = new IpAddress("Hello!");
         }
     }
 }
